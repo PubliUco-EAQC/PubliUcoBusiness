@@ -16,19 +16,17 @@ public final class EstadoAssembler
 
 	@Override
 	public EstadoDomain toDomainFromDto(EstadoDTO dto) {
-		return EstadoDomain.create();
+		return new EstadoDomain(dto.getIdentificador(), dto.getNombre(), dto.getTipoEstado());
 	}
 
 	@Override
 	public EstadoEntity toEntityFromDomain(EstadoDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
+		return new EstadoEntity(domain.getIdentificador(), domain.getNombre(), domain.getTipoEstado());
 	}
 
 	@Override
 	public EstadoDomain toDomainFromEntity(EstadoEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		return new EstadoDomain(entity.getIdentificador(),entity.getNombre(),entity.getTipoEstado());
 	}
 	
 }

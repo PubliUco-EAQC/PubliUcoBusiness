@@ -6,8 +6,8 @@ import java.util.UUID;
 
 public class CalificacionAssembler {
     private UUID identificador;
-    private PublicacionEntity publicacion;
-    private LectorEntity lector;
+    private PublicacionAssembler publicacion;
+    private LectorAssembler lector;
     private LocalDateTime fechaCalificacion;
     private String calificacion;
 

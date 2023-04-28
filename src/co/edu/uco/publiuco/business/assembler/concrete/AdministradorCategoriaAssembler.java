@@ -4,10 +4,10 @@ import java.util.UUID;
 
 public final class AdministradorCategoriaAssembler {
     private UUID identificador;
-    private PersonaEntity datosPersona;
-    private EstadoEntity estado;
+    private PersonaAssembler datosPersona;
+    private EstadoAssembler estado;
 
-    public AdministradorCategoriaAssembler(UUID identificador, PersonaEntity persona, EstadoEntity estado) {
+    public AdministradorCategoriaAssembler(UUID identificador, PersonaAssembler persona, EstadoAssembler estado) {
         super();
         setIdentificador(identificador);
         setPersona(persona);
@@ -18,11 +18,11 @@ public final class AdministradorCategoriaAssembler {
         this.identificador = UtilUUID.getDefault(identificador);
     }
 
-    private final void setPersona(final PersonaEntity datosPersona) {
+    private final void setPersona(final PersonaAssembler datosPersona) {
         this.datosPersona = datosPersona;
     }
 
-    private final void setEstado(final EstadoEntity estado) {
+    private final void setEstado(final EstadoAssembler estado) {
         this.estado = estado;
     }
 
@@ -30,11 +30,11 @@ public final class AdministradorCategoriaAssembler {
         return identificador;
     }
 
-    public final PersonaEntity getNombre() {
+    public final PersonaAssembler getNombre() {
         return datosPersona;
     }
 
-    public final EstadoEntity getEstado() {
+    public final EstadoAssembler getEstado() {
         return estado;
     }
 }
