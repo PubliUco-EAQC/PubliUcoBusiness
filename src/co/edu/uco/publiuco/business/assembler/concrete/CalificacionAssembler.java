@@ -11,7 +11,7 @@ public class CalificacionAssembler {
     private LocalDateTime fechaCalificacion;
     private String calificacion;
 
-    public CalificacionAssembler(UUID identificador, PublicacionEntity publicacion, LectorEntity lector, LocalDateTime fechaCalificacion, String calificacion) {
+    public CalificacionAssembler(UUID identificador, PublicacionAssembler publicacion, LectorEntity lector, LocalDateTime fechaCalificacion, String calificacion) {
         super();
         setIdentificador(identificador);
         setPublicacion(publicacion);
