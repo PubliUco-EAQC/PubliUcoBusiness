@@ -1,14 +1,25 @@
 package co.edu.uco.publiuco.business.domain;
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
+import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
 
 import java.util.UUID;
 
-public class EscritorPublicacionDomain {
+public final class EscritorPublicacionDomain {
     private UUID identificador;
-    private PublicacionEntity publicacion;
+    private PublicacionDomain publicacion;
     private EscritorDomain escritor;
-    private TipoEscritorEntity tipoEscritor;
+    private TipoEscritorDomain tipoEscritor;
+    public static EscritorPublicacionDomain DEFAULT_OBJECT = new EscritorPublicacionDomain();
 
-    public EscritorPublicacionDomain(UUID identificador, PublicacionEntity publicacion, EscritorDomain escritor, TipoEscritorEntity tipoEscritor) {
+    private EscritorPublicacionDomain() {
+        super();
+        setIdentificador(UtilUUID.getDefaultValue());
+        setPublicacion(PublicacionDomain.getDefaultObject());
+        setEscritor(EscritorDomain.getDefaultObject());
+        setTipoEscritor(TipoEscritorDomain.getDefaultObject());
+    }
+
+    public EscritorPublicacionDomain(UUID identificador, PublicacionDomain publicacion, EscritorDomain escritor, TipoEscritorDomain tipoEscritor) {
         super();
         setIdentificador(identificador);
         setPublicacion(publicacion);
@@ -20,7 +31,7 @@ public class EscritorPublicacionDomain {
         return identificador;
     }
 
-    public PublicacionEntity getPublicacion() {
+    public PublicacionDomain getPublicacion() {
         return publicacion;
     }
 
@@ -28,23 +39,26 @@ public class EscritorPublicacionDomain {
         return escritor;
     }
 
-    public TipoEscritorEntity getTipoEscritor() {
+    public TipoEscritorDomain getTipoEscritor() {
         return tipoEscritor;
     }
 
-    private void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+    private void setIdentificador(final UUID identificador) {
+        this.identificador = UtilUUID.getDefault(identificador);
     }
 
-    private void setPublicacion(PublicacionEntity publicacion) {
-        this.publicacion = publicacion;
+    private void setPublicacion(final PublicacionDomain publicacion) {
+        this.publicacion = UtilObject.getDefault(publicacion, PublicacionDomain.getDefaultObject());
     }
 
-    private void setEscritor(EscritorDomain escritor) {
-        this.escritor = escritor;
+    private void setEscritor(final EscritorDomain escritor) {
+        this.escritor = UtilObject.getDefault(escritor, EscritorDomain.getDefaultObject());
     }
 
-    private void setTipoEscritor(TipoEscritorEntity tipoEscritor) {
-        this.tipoEscritor = tipoEscritor;
+    private void setTipoEscritor(final TipoEscritorDomain tipoEscritor) {
+        this.tipoEscritor = UtilObject.getDefault(tipoEscritor, TipoEscritorDomain.getDefaultObject());
+    }
+    public static EscritorPublicacionDomain getDefaultObject (){
+        return DEFAULT_OBJECT;
     }
 }

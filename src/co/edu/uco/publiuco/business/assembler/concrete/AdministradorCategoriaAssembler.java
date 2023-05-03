@@ -1,40 +1,43 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
-import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
-import java.util.UUID;
 
-public final class AdministradorCategoriaAssembler {
-    private UUID identificador;
-    private PersonaAssembler datosPersona;
-    private EstadoAssembler estado;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.AdministradorCategoriaDomain;
+import co.edu.uco.publiuco.dto.AdministradorCategoriaDTO;
+import co.edu.uco.publiuco.entities.AdministradorCategoriaEntity;
 
-    public AdministradorCategoriaAssembler(UUID identificador, PersonaAssembler persona, EstadoAssembler estado) {
+public final class AdministradorCategoriaAssembler implements Assembler<AdministradorCategoriaDomain, AdministradorCategoriaDTO, AdministradorCategoriaEntity> {
+    public static final AdministradorCategoriaAssembler INSTANCE = new AdministradorCategoriaAssembler();
+    public static AdministradorCategoriaAssembler getInstance() { return INSTANCE; }
+    private AdministradorCategoriaAssembler(){
         super();
-        setIdentificador(identificador);
-        setPersona(persona);
-        setEstado(estado);
+    }
+    @Override
+    public AdministradorCategoriaDTO toDtoFromDomain(AdministradorCategoriaDomain domain) {
+        return AdministradorCategoriaDTO.create().setIdentificador(domain.getIdentificador()).setPersona(PersonaAssembler.getInstance().toDTOFromDomain(domain.getPersona()));
     }
 
-    private final void setIdentificador(final UUID identificador) {
-        this.identificador = UtilUUID.getDefault(identificador);
+    @Override
+    public AdministradorCategoriaDomain toDomainFromDto(AdministradorCategoriaDTO dto) {
+        return new AdministradorCategoriaDomain(dto.getIdentificador(), PersonaAssembler.getInstance().toDomainFromDTO(dto.getPersona()), EstadoAssembler.getInstance().toDomainFromDTO(dto.getEstado()));
     }
 
-    private final void setPersona(final PersonaAssembler datosPersona) {
-        this.datosPersona = datosPersona;
+    @Override
+    public AdministradorCategoriaEntity toEntityFromDomain(AdministradorCategoriaDomain domain) {
+        return new AdministradorCategoriaEntity(domain.getIdentificador(), PersonaAssembler.getInstance().toEntityFromDomain(domain.getPersona()),EstadoAssembler.getInstance().toEntityFromDomain(domain.getEstado()));
     }
 
-    private final void setEstado(final EstadoAssembler estado) {
-        this.estado = estado;
+    @Override
+    public AdministradorCategoriaDomain toDomainFromEntity(AdministradorCategoriaEntity entity) {
+        return new AdministradorCategoriaDomain(entity.getIdentificador(),PersonaAssembler.getInstance().toDomainFromEntity(entity.getPersona()), EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
-
-    public final UUID getIdentificador() {
-        return identificador;
-    }
-
-    public final PersonaAssembler getNombre() {
-        return datosPersona;
-    }
-
-    public final EstadoAssembler getEstado() {
-        return estado;
-    }
+	@Override
+	public AdministradorCategoriaDTO toDtofromDomain(AdministradorCategoriaDomain domain) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public AdministradorCategoriaDomain toDomainFromDto(AdministradorCategoriaDTO dto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

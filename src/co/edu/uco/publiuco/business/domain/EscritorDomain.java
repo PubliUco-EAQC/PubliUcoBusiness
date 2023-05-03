@@ -1,14 +1,25 @@
 package co.edu.uco.publiuco.business.domain;
 
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
+import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
+
 import java.util.UUID;
 
-public class EscritorDomain {
+public final class EscritorDomain {
     private UUID identificador;
-    private PersonaEntity datosPersona;
-    private TipoRelacionInstitucionEntity tipoRelacionInstitucion;
-    private EstadoEntity estado;
+    private PersonaDomain datosPersona;
+    private TipoRelacionInstitucionDomain tipoRelacionInstitucion;
+    private EstadoDomain estado;
+    public static EscritorDomain DEFAULT_OBJECT = new EscritorDomain();
 
-    public EscritorDomain(UUID identificador, PersonaEntity datosPersona, TipoRelacionInstitucionEntity tipoRelacionInstitucion, EstadoEntity estado) {
+    private EscritorDomain() {
+        super();
+        setIdentificador(UtilUUID.getDefaultValue());
+        setDatosPersona(PersonaDomain.getDefaultObject());
+        setTipoRelacionInstitucion(TipoRelacionInstitucionDomain.getDefaultObject());
+        setEstado(EstadoDomain.getDefaultObject());
+    }
+    public EscritorDomain(UUID identificador, PersonaDomain datosPersona, TipoRelacionInstitucionDomain tipoRelacionInstitucion, EstadoDomain estado) {
         super();
         setIdentificador(identificador);
         setDatosPersona(datosPersona);
@@ -20,31 +31,34 @@ public class EscritorDomain {
         return identificador;
     }
 
-    public PersonaEntity getDatosPersona() {
+    public PersonaDomain getDatosPersona() {
         return datosPersona;
     }
 
-    public TipoRelacionInstitucionEntity getTipoRelacionInstitucion() {
+    public TipoRelacionInstitucionDomain getTipoRelacionInstitucion() {
         return tipoRelacionInstitucion;
     }
 
-    public EstadoEntity getEstado() {
+    public EstadoDomain getEstado() {
         return estado;
     }
 
-    private void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+    private void setIdentificador(final UUID identificador) {
+        this.identificador = UtilUUID.getDefault(identificador);
     }
 
-    private void setDatosPersona(PersonaEntity datosPersona) {
-        this.datosPersona = datosPersona;
+    private void setDatosPersona(final PersonaDomain datosPersona) {
+        this.datosPersona = UtilObject.getDefault(datosPersona, PersonaDomain.getDefaultObject());
     }
 
-    private void setTipoRelacionInstitucion(TipoRelacionInstitucionEntity tipoRelacionInstitucion) {
-        this.tipoRelacionInstitucion = tipoRelacionInstitucion;
+    private void setTipoRelacionInstitucion(TipoRelacionInstitucionDomain tipoRelacionInstitucion) {
+        this.tipoRelacionInstitucion = UtilObject.getDefault(tipoRelacionInstitucion, TipoRelacionInstitucionDomain.getDefaultObject());
     }
 
-    private void setEstado(EstadoEntity estado) {
-        this.estado = estado;
+    private void setEstado(EstadoDomain estado) {
+        this.estado = UtilObject.getDefault(estado, EstadoDomain.getDefaultObject());
+    }
+    public static EscritorDomain getDefaultObject (){
+        return DEFAULT_OBJECT;
     }
 }

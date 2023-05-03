@@ -1,53 +1,37 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilText;
-import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.ComentarioRevisorDomain;
+import co.edu.uco.publiuco.dto.ComentarioRevisorDTO;
+import co.edu.uco.publiuco.entities.ComentarioRevisorEntity;
 
-import java.util.UUID;
-
-public class ComentarioRevisorAssembler {
-    private UUID identificador;
-    private RevisorRevisionEntity revisorRevision;
-    private TipoComentarioRevisorEntity tipoComentarioRevisor;
-    private String comentario;
-
-    public ComentarioRevisorAssembler(UUID identificador, RevisorRevisionEntity revisorRevision, TipoComentarioRevisorEntity tipoComentarioRevisor, String comentario) {
+public final class ComentarioRevisorAssembler implements Assembler<ComentarioRevisorDomain, ComentarioRevisorDTO, ComentarioRevisorEntity> {
+    public static final ComentarioRevisorAssembler INSTANCE = new ComentarioRevisorAssembler();
+    public static ComentarioRevisorAssembler getInstance() { return INSTANCE; }
+    private ComentarioRevisorAssembler(){
         super();
-        setIdentificador(UtilUUID.DEFAULT_UUID);
-        setRevisorRevision(revisorRevision);
-        setTipoComentarioRevisor(tipoComentarioRevisor);
-        setComentario(comentario);
+    }
+    @Override
+    public ComentarioRevisorDTO toDTOFromDomain(ComentarioRevisorDomain domain) {
+        return ComentarioRevisorDTO.create().setIdentificador(domain.getIdentificador()).setComentario(domain.getComentario())
+                .setTipoComentarioRevisor(TipoComentarioRevisorAssembler.getInstance().toDTOFromDomain(domain.getTipoComentarioRevisor()))
+                .setRevisorRevision(RevisorRevisionAssembler.getInstance().toDTOFromDomain(domain.getRevisorRevision()));
     }
 
-    public UUID getIdentificador() {
-        return identificador;
+    @Override
+    public ComentarioRevisorDomain toDomainFromDTO(ComentarioRevisorDTO dto) {
+        return new ComentarioRevisorDomain(dto.getIdentificador(),RevisorRevisionAssembler.getInstance().toDomainFromDTO(dto.getRevisorRevision()),
+                TipoComentarioRevisorAssembler.getInstance().toDomainFromDTO(dto.getTipoComentarioRevisor()), dto.getComentario());
     }
 
-    public RevisorRevisionEntity getRevisorRevision() {
-        return revisorRevision;
+    @Override
+    public ComentarioRevisorEntity toEntityFromDomain(ComentarioRevisorDomain domain) {
+        return new ComentarioRevisorEntity(domain.getIdentificador(), RevisorRevisionAssembler.getInstance().toEntityFromDomain(domain.getRevisorRevision()), TipoComentarioRevisorAssembler.getInstance().toEntityFromDomain(domain.getTipoComentarioRevisor()),
+                domain.getComentario());
     }
 
-    public TipoComentarioRevisorEntity getTipoComentarioRevisor() {
-        return tipoComentarioRevisor;
-    }
-
-    public String getComentario() {
-        return comentario;
-    }
-
-    private final void  setIdentificador(UUID identificador) {
-        this.identificador = identificador;
-    }
-
-    private final void setRevisorRevision(RevisorRevisionEntity revisorRevision) {
-        this.revisorRevision = revisorRevision;
-    }
-
-    private final void setTipoComentarioRevisor(TipoComentarioRevisorEntity tipoComentarioRevisor) {
-        this.tipoComentarioRevisor = tipoComentarioRevisor;
-    }
-
-    private final void setComentario(String comentario) {
-        this.comentario = UtilText.applyTrim(comentario);
+    @Override
+    public ComentarioRevisorDomain toDomainFromEntity(ComentarioRevisorEntity entity) {
+        return new ComentarioRevisorDomain(entity.getIdentificador(),RevisorRevisionAssembler.getInstance().toDomainFromEntity(entity.getRevisorRevision()),TipoComentarioRevisorAssembler.getInstance().toDomainFromEntity(entity.getTipoComentarioRevisor()), entity.getComentario());
     }
 }

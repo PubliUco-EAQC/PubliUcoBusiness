@@ -1,62 +1,35 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilText;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.CalificacionDomain;
+import co.edu.uco.publiuco.dto.CalificacionDTO;
+import co.edu.uco.publiuco.entities.CalificacionEntity;
 
-public class CalificacionAssembler {
-    private UUID identificador;
-    private PublicacionAssembler publicacion;
-    private LectorAssembler lector;
-    private LocalDateTime fechaCalificacion;
-    private String calificacion;
-
-    public CalificacionAssembler(UUID identificador, PublicacionAssembler publicacion, LectorEntity lector, LocalDateTime fechaCalificacion, String calificacion) {
+public final class CalificacionAssembler implements Assembler<CalificacionDomain, CalificacionDTO, CalificacionEntity> {
+    public static final CalificacionAssembler INSTANCE = new CalificacionAssembler();
+    public static CalificacionAssembler getInstance() { return INSTANCE; }
+    private CalificacionAssembler(){
         super();
-        setIdentificador(identificador);
-        setPublicacion(publicacion);
-        setLector(lector);
-        setFechaCalificacion(fechaCalificacion);
-        setCalificacion(calificacion);
+    }
+    @Override
+    public CalificacionDTO toDTOFromDomain(CalificacionDomain domain) {
+        return CalificacionDTO.create().setCalificacion(domain.getCalificacion()).setFechaCalificacion(domain.getFechaCalificacion()).setLector(LectorAssembler.getInstance().toDTOFromDomain(domain.getLector()))
+                .setPublicacion(PublicacionAssembler.getInstance().toDTOFromDomain(domain.getPublicacion())).setCalificacion(domain.getCalificacion());
     }
 
-    private final void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+    @Override
+    public CalificacionDomain toDomainFromDTO(CalificacionDTO dto) {
+        return new CalificacionDomain(dto.getIdentificador(),PublicacionAssembler.getInstance().toDomainFromDTO(dto.getPublicacion()), LectorAssembler.getInstance().toDomainFromDTO(dto.getLector()), dto.getFechaCalificacion(),
+                dto.getCalificacion());
     }
 
-    private final void setPublicacion(PublicacionEntity publicacion) {
-        this.publicacion = publicacion;
+    @Override
+    public CalificacionEntity toEntityFromDomain(CalificacionDomain domain) {
+        return new CalificacionEntity(domain.getIdentificador(),PublicacionAssembler.getInstance().toEntityFromDomain(domain.getPublicacion()), LectorAssembler.getInstance().toEntityFromDomain(domain.getLector()), domain.getFechaCalificacion(), domain.getCalificacion());
     }
 
-    private final void setLector(LectorEntity lector) {
-        this.lector = lector;
-    }
-
-    private final void setFechaCalificacion(LocalDateTime fechaCalificacion) {
-        this.fechaCalificacion = fechaCalificacion;
-    }
-
-    private final void setCalificacion(String calificacion) {
-        this.calificacion = UtilText.applyTrim(calificacion);
-    }
-    
-    public UUID getIdentificador() {
-        return identificador;
-    }
-
-    public PublicacionEntity getPublicacion() {
-        return publicacion;
-    }
-
-    public LectorEntity getLector() {
-        return lector;
-    }
-
-    public LocalDateTime getFechaCalificacion() {
-        return fechaCalificacion;
-    }
-
-    public String getCalificacion() {
-        return calificacion;
+    @Override
+    public CalificacionDomain toDomainFromEntity(CalificacionEntity entity) {
+        return new CalificacionDomain(entity.getIdentificador(),PublicacionAssembler.getInstance().toDomainFromEntity(entity.getPublicacion()), LectorAssembler.getInstance().toDomainFromEntity(entity.getLector()),entity.getFechaCalificacion(), entity.getCalificacion());
     }
 }

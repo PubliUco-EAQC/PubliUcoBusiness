@@ -1,6 +1,7 @@
 package co.edu.uco.publiuco.business.domain;
 
 
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
 import co.edu.uco.publiuco.crosscutting.utils.UtilText;
 import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
 
@@ -12,6 +13,16 @@ public final class EstadoDomain {
     private UUID identificador;
     private String nombre;
     private TipoEstadoDomain tipoEstado;
+    public static EstadoDomain DEFAULT_OBJECT = new EstadoDomain();
+
+
+    private EstadoDomain() {
+        super();
+        setIdentificador(UtilUUID.getDefaultValue());
+        setNombre(UtilText.getDefaultValue());
+        setTipoEstado(TipoEstadoDomain.getDefaultObject());
+    }
+
 
     public EstadoDomain(UUID identificador, String nombre, TipoEstadoDomain tipoEstado) {
         super();
@@ -29,7 +40,8 @@ public final class EstadoDomain {
     }
 
     private final void setTipoEstado(final TipoEstadoDomain tipoEstado) {
-        this.tipoEstado = tipoEstado;
+
+        this.tipoEstado = UtilObject.getDefault(tipoEstado, TipoEstadoDomain.getDefaultObject());
     }
 
     public final UUID getIdentificador() {
@@ -42,5 +54,9 @@ public final class EstadoDomain {
 
     public final TipoEstadoDomain getTipoEstado() {
         return tipoEstado;
+    }
+
+    public static EstadoDomain getDefaultObject(){
+        return DEFAULT_OBJECT;
     }
 }

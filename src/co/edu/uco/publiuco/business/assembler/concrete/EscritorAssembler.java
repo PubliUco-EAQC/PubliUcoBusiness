@@ -1,50 +1,38 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.UUID;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.EscritorDomain;
+import co.edu.uco.publiuco.dto.EscritorDTO;
+import co.edu.uco.publiuco.entities.EscritorEntity;
 
-public class EscritorAssembler {
-    private UUID identificador;
-    private PersonaEntity datosPersona;
-    private TipoRelacionInstitucionEntity tipoRelacionInstitucion;
-    private EstadoEntity estado;
-
-    public EscritorAssembler(UUID identificador, PersonaEntity datosPersona, TipoRelacionInstitucionEntity tipoRelacionInstitucion, EstadoEntity estado) {
+public final class EscritorAssembler implements Assembler<EscritorDomain, EscritorDTO, EscritorEntity> {
+    public static final EscritorAssembler INSTANCE = new EscritorAssembler();
+    public static EscritorAssembler getInstance() { return INSTANCE; }
+    private EscritorAssembler(){
         super();
-        setIdentificador(identificador);
-        setDatosPersona(datosPersona);
-        setTipoRelacionInstitucion(tipoRelacionInstitucion);
-        setEstado(estado);
+    }
+    @Override
+    public EscritorDTO toDTOFromDomain(EscritorDomain domain) {
+        return EscritorDTO.create().setIdentificador(domain.getIdentificador()).setTipoRelacionInstitucion(TipoRelacionInstitucionAssembler.getInstance().toDTOFromDomain(domain.getTipoRelacionInstitucion()))
+                .setDatosPersona(PersonaAssembler.getInstance().toDTOFromDomain(domain.getDatosPersona())).setEstado(EstadoAssembler.getInstance().toDTOFromDomain(domain.getEstado()));
     }
 
-    public UUID getIdentificador() {
-        return identificador;
+    @Override
+    public EscritorDomain toDomainFromDTO(EscritorDTO dto) {
+        return new EscritorDomain(dto.getIdentificador(),PersonaAssembler.getInstance().toDomainFromDTO(dto.getDatosPersona()),
+                TipoRelacionInstitucionAssembler.getInstance().toDomainFromDTO(dto.getTipoRelacionInstitucion()), EstadoAssembler.getInstance().toDomainFromDTO(dto.getEstado()));
     }
 
-    public PersonaEntity getDatosPersona() {
-        return datosPersona;
+    @Override
+    public EscritorEntity toEntityFromDomain(EscritorDomain domain) {
+        return new EscritorEntity(domain.getIdentificador(),PersonaAssembler.getInstance().toEntityFromDomain(domain.getDatosPersona()),
+                TipoRelacionInstitucionAssembler.getInstance().toEntityFromDomain(domain.getTipoRelacionInstitucion()), EstadoAssembler.getInstance().toEntityFromDomain(domain.getEstado()));
     }
 
-    public TipoRelacionInstitucionEntity getTipoRelacionInstitucion() {
-        return tipoRelacionInstitucion;
-    }
-
-    public EstadoEntity getEstado() {
-        return estado;
-    }
-
-    private void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
-    }
-
-    private void setDatosPersona(PersonaEntity datosPersona) {
-        this.datosPersona = datosPersona;
-    }
-
-    private void setTipoRelacionInstitucion(TipoRelacionInstitucionEntity tipoRelacionInstitucion) {
-        this.tipoRelacionInstitucion = tipoRelacionInstitucion;
-    }
-
-    private void setEstado(EstadoEntity estado) {
-        this.estado = estado;
+    @Override
+    public EscritorDomain toDomainFromEntity(EscritorEntity entity) {
+        return new EscritorDomain(entity.getIdentificador(),PersonaAssembler.getInstance().toDomainFromEntity(entity.getDatosPersona()),
+                TipoRelacionInstitucionAssembler.getInstance().toDomainFromEntity(entity.getTipoRelacionInstitucion()),
+                EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
 }

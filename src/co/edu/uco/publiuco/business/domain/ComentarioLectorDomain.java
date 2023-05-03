@@ -1,42 +1,58 @@
 package co.edu.uco.publiuco.business.domain;
 
 import co.edu.uco.publiuco.crosscutting.utils.UtilDate;
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
 import co.edu.uco.publiuco.crosscutting.utils.UtilText;
 import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 public final class ComentarioLectorDomain {
 
 	private UUID identificador;
-	private LectorEntity lector;
-	private PublicacionEntity publicacion;
+	private LectorDomain lector;
+	private PublicacionDomain publicacion;
 	private ComentarioLectorDomain comentarioPadre;
-	private String cotenido;
+	private String contenido;
 	private LocalDateTime fechaCalificacion;
-	private EstadoEntity estado;
+	private EstadoDomain estado;
+	public static ComentarioLectorDomain DEFAULT_OBJECT = new ComentarioLectorDomain();
 
-	public ComentarioLectorDomain(UUID identificador, LectorEntity lector, PublicacionEntity publicacion, ComentarioLectorDTO comentarioPadre, String contenido, LocalDateTime fechaCalificacion, EstadoDTO estado) {
+
+	private ComentarioLectorDomain() {
+		super();
+		setIdentificador(UtilUUID.getDefaultValue());
+		setLector(LectorDomain.getDefaultObject());
+		setPublicacion(PublicacionDomain.getDefaultObject());
+		setComentarioPadre(getDefaultObject());
+		setContenido(UtilText.getDefaultValue());
+		setFechaCalificacion(UtilDate.getDefaultValue());
+		setEstado(EstadoDomain.getDefaultObject() );
+	}
+
+
+	public ComentarioLectorDomain(UUID identificador, LectorDomain lector, PublicacionDomain publicacion, ComentarioLectorDomain comentarioPadre, String contenido, LocalDateTime fechaCalificacion, EstadoDomain estado) {
 		super();
 		setIdentificador(identificador);
 		setLector(lector);
-		setPublicacion(publicacion);
 		setComentarioPadre(comentarioPadre);
-		setCotenido(contenido);
+		setPublicacion(publicacion);
+		setContenido(contenido);
 		setFechaCalificacion(fechaCalificacion);
 		setEstado(estado);
 	}
+
+
 
 	public UUID getIdentificador() {
 		return identificador;
 	}
 
-	public LectorEntity getLector() {
+	public LectorDomain getLector() {
 		return lector;
 	}
 
-	public PublicacionEntity getPublicacion() {
+	public PublicacionDomain getPublicacion() {
 		return publicacion;
 	}
 
@@ -45,43 +61,46 @@ public final class ComentarioLectorDomain {
 	}
 
 	public String getCotenido() {
-		return cotenido;
+		return contenido;
 	}
 
 	public LocalDateTime getFechaCalificacion() {
 		return fechaCalificacion;
 	}
 
-	public EstadoEntity getEstado() {
+	public EstadoDomain getEstado() {
 		return estado;
 	}
-	
-	private final void setIdentificador(UUID identificador) {
-		this.identificador = identificador;
+
+	private void setIdentificador(final UUID identificador) {
+		this.identificador = UtilUUID.getDefault(identificador);
 	}
 
-	private final void setLector(LectorEntity lector) {
-		this.lector = lector;
+	private void setLector(final LectorDomain lector) {
+		this.lector = UtilObject.getDefault(lector, LectorDomain.getDefaultObject());
 	}
 
-	private final void setPublicacion(PublicacionEntity publicacion) {
-		this.publicacion = publicacion;
+	private void setPublicacion(final PublicacionDomain publicacion) {
+		this.publicacion = UtilObject.getDefault(publicacion, PublicacionDomain.getDefaultObject());
 	}
 
-	private final void setComentarioPadre(final ComentarioLectorDomain comentarioPadre) {
-		this.comentarioPadre = comentarioPadre;
+	private void setComentarioPadre(final ComentarioLectorDomain comentarioPadre) {
+		this.comentarioPadre = UtilObject.getDefault(comentarioPadre, ComentarioLectorDomain.getDefaultObject());
 	}
 
-	private final void setEstado(final EstadoEntity estado) {
+	private void setEstado(final EstadoDomain estado) {
 		this.estado = estado;
 	}
 
-	private final void setCotenido(String cotenido) {
-		this.cotenido = cotenido;
+	private void setContenido(final String contenido) {
+		this.contenido = contenido;
 	}
 
-	private final void setFechaCalificacion(LocalDateTime fechaCalificacion) {
+	private void setFechaCalificacion(final LocalDateTime fechaCalificacion) {
 		this.fechaCalificacion = fechaCalificacion;
 	}
-	
+
+	public static ComentarioLectorDomain getDefaultObject() {
+		return DEFAULT_OBJECT;
+	}
 }

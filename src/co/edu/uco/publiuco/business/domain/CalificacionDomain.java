@@ -1,17 +1,31 @@
 package co.edu.uco.publiuco.business.domain;
 
+import co.edu.uco.publiuco.crosscutting.utils.UtilDate;
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
 import co.edu.uco.publiuco.crosscutting.utils.UtilText;
+import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class CalificacionDomain {
+public final class CalificacionDomain {
     private UUID identificador;
-    private PublicacionEntity publicacion;
-    private LectorEntity lector;
+    private PublicacionDomain publicacion;
+    private LectorDomain lector;
     private LocalDateTime fechaCalificacion;
     private String calificacion;
+    public static CalificacionDomain DEFAULT_OBJECT = new CalificacionDomain();
 
-    public CalificacionDomain(UUID identificador, PublicacionEntity publicacion, LectorEntity lector, LocalDateTime fechaCalificacion, String calificacion) {
+    private CalificacionDomain() {
+        super();
+        setIdentificador(UtilUUID.getDefaultValue());
+        setPublicacion(PublicacionDomain.getDefaultObject());
+        setLector(LectorDomain.getDefaultObject());
+        setFechaCalificacion(UtilDate.getDefaultValue());
+        setCalificacion(UtilText.getDefaultValue());
+    }
+
+    public CalificacionDomain(UUID identificador, PublicacionDomain publicacion, LectorDomain lector, LocalDateTime fechaCalificacion, String calificacion) {
         super();
         setIdentificador(identificador);
         setPublicacion(publicacion);
@@ -20,35 +34,15 @@ public class CalificacionDomain {
         setCalificacion(calificacion);
     }
 
-    private final void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
-    }
-
-    private final void setPublicacion(PublicacionEntity publicacion) {
-        this.publicacion = publicacion;
-    }
-
-    private final void setLector(LectorEntity lector) {
-        this.lector = lector;
-    }
-
-    private final void setFechaCalificacion(LocalDateTime fechaCalificacion) {
-        this.fechaCalificacion = fechaCalificacion;
-    }
-
-    private final void setCalificacion(String calificacion) {
-        this.calificacion = UtilText.applyTrim(calificacion);
-    }
-    
     public UUID getIdentificador() {
         return identificador;
     }
 
-    public PublicacionEntity getPublicacion() {
+    public PublicacionDomain getPublicacion() {
         return publicacion;
     }
 
-    public LectorEntity getLector() {
+    public LectorDomain getLector() {
         return lector;
     }
 
@@ -58,5 +52,28 @@ public class CalificacionDomain {
 
     public String getCalificacion() {
         return calificacion;
+    }
+
+    private void setIdentificador(final UUID identificador) {
+        this.identificador = UtilUUID.getDefault(identificador);
+    }
+
+    private void setPublicacion(final PublicacionDomain publicacion) {
+        this.publicacion = UtilObject.getDefault(publicacion, PublicacionDomain.getDefaultObject());
+    }
+
+    private void setLector(final LectorDomain lector) {
+        this.lector = UtilObject.getDefault(lector, LectorDomain.getDefaultObject());
+    }
+
+    private void setFechaCalificacion(final LocalDateTime fechaCalificacion) {
+        this.fechaCalificacion = UtilDate.getDefault(fechaCalificacion);
+    }
+
+    private void setCalificacion(final String calificacion) {
+        this.calificacion = UtilText.applyTrim(calificacion);
+    }
+    public static CalificacionDomain getDefaultObject (){
+        return DEFAULT_OBJECT;
     }
 }

@@ -1,42 +1,34 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.CategoriaAdministradorCategoriaDomain;
+import co.edu.uco.publiuco.dto.CategoriaAdministradorCategoriaDTO;
+import co.edu.uco.publiuco.entities.CategoriaAdministradorCategoriaEntity;
 
-import java.util.UUID;
-public final class CategoriaAdministradorCategoriaAssembler {
+public final class CategoriaAdministradorCategoriaAssembler implements Assembler<CategoriaAdministradorCategoriaDomain, CategoriaAdministradorCategoriaDTO, CategoriaAdministradorCategoriaEntity> {
+    public static final CategoriaAdministradorCategoriaAssembler INSTANCE = new CategoriaAdministradorCategoriaAssembler();
+    public static CategoriaAdministradorCategoriaAssembler getInstance() { return INSTANCE; }
+    private CategoriaAdministradorCategoriaAssembler(){
+        super();
+    }
+    @Override
+    public CategoriaAdministradorCategoriaDTO toDTOFromDomain(CategoriaAdministradorCategoriaDomain domain) {
+        return CategoriaAdministradorCategoriaDTO.create().setIdentificador(domain.getIdentificador()).setAdministradorCategoria(AdministradorCategoriaAssembler.getInstance().toDTOFromDomain(domain.getAdministradorCategoria()))
+                .setCategoria(CategoriaAssembler.getInstance().toDTOFromDomain(domain.getCategoria()));
+    }
 
-	private UUID identificador;
-	private CategoriaAssembler categoria;
-	private AdministradorCategoriaAssembler administradorCategoria;
+    @Override
+    public CategoriaAdministradorCategoriaDomain toDomainFromDTO(CategoriaAdministradorCategoriaDTO dto) {
+        return new CategoriaAdministradorCategoriaDomain(dto.getIdentificador(),CategoriaAssembler.getInstance().toDomainFromDTO(dto.getCategoria()), AdministradorCategoriaAssembler.getInstance().toDomainFromDTO(dto.getAdministradorCategoria()));
+    }
 
-	public CategoriaAdministradorCategoriaAssembler(UUID identificador, CategoriaAssembler categoria, AdministradorCategoriaAssembler administradorCategoria) {
-		super();
-		setIdentificador(identificador);
-		setCategoria(categoria);
-		setAdministradorCategoria(administradorCategoria);
-	}
+    @Override
+    public CategoriaAdministradorCategoriaEntity toEntityFromDomain(CategoriaAdministradorCategoriaDomain domain) {
+        return new CategoriaAdministradorCategoriaEntity(domain.getIdentificador(), CategoriaAssembler.getInstance().toEntityFromDomain(domain.getCategoria()), AdministradorCategoriaAssembler.getInstance().toEntityFromDomain(domain.getAdministradorCategoria()));
+    }
 
-	public final void setIdentificador(final UUID identificador) {
-		this.identificador = UtilUUID.getDefault(identificador);
-	}
-
-	public final void setCategoria(final CategoriaAssembler categoria) {
-		this.categoria = categoria;
-	}
-
-	public final void setAdministradorCategoria(final AdministradorCategoriaAssembler administradorCategoria) {
-		this.administradorCategoria = administradorCategoria;
-	}
-
-	public UUID getIdentificador() {
-		return identificador;
-	}
-
-	public CategoriaAssembler getCategoria() {
-		return categoria;
-	}
-
-	public AdministradorCategoriaAssembler getAdministradorCategoria() {
-		return administradorCategoria;
-	}
+    @Override
+    public CategoriaAdministradorCategoriaDomain toDomainFromEntity(CategoriaAdministradorCategoriaEntity entity) {
+        return new CategoriaAdministradorCategoriaDomain(entity.getIdentificador(),CategoriaAssembler.getInstance().toDomainFromEntity(entity.getCategoria()), AdministradorCategoriaAssembler.getInstance().toDomainFromEntity(entity.getAdministradorCategoria()));
+    }
 }

@@ -1,87 +1,39 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilDate;
-import co.edu.uco.publiuco.crosscutting.utils.UtilText;
-import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.ComentarioLectorDomain;
+import co.edu.uco.publiuco.dto.ComentarioLectorDTO;
+import co.edu.uco.publiuco.entities.ComentarioLectorEntity;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.UUID;
-public final class ComentarioLectorAssembler {
+public final class ComentarioLectorAssembler implements Assembler<ComentarioLectorDomain, ComentarioLectorDTO, ComentarioLectorEntity> {
+    public static final ComentarioLectorAssembler INSTANCE = new ComentarioLectorAssembler();
+    public static ComentarioLectorAssembler getInstance() { return INSTANCE; }
+    private ComentarioLectorAssembler(){
+        super();
+    }
+    @Override
+    public ComentarioLectorDTO toDTOFromDomain(ComentarioLectorDomain domain) {
+        return ComentarioLectorDTO.create().setIdentificador(domain.getIdentificador()).setLector(LectorAssembler.getInstance().toDTOFromDomain(domain.getLector()))
+                .setComentarioPadre(ComentarioLectorAssembler.getInstance().toDTOFromDomain(domain.getComentarioPadre())).setEstado(EstadoAssembler.getInstance().toDTOFromDomain(domain.getEstado()))
+                .setCotenido(domain.getCotenido()).setFechaCalificacion(domain.getFechaCalificacion()).setPublicacion(PublicacionAssembler.getInstance().toDTOFromDomain(domain.getPublicacion()));
+    }
 
-	private UUID identificador;
-	private LectorEntity lector;
-	private PublicacionEntity publicacion;
-	private ComentarioLectorAssembler comentarioPadre;
-	private String cotenido;
-	private LocalDateTime fechaCalificacion;
-	private EstadoEntity estado;
+    @Override
+    public ComentarioLectorDomain toDomainFromDTO(ComentarioLectorDTO dto) {
+        return new ComentarioLectorDomain(dto.getIdentificador(),LectorAssembler.getInstance().toDomainFromDTO(dto.getLector()), PublicacionAssembler.getInstance().toDomainFromDTO(dto.getPublicacion()),
+                ComentarioLectorAssembler.getInstance().toDomainFromDTO(dto.getComentarioPadre()), dto.getCotenido(),dto.getFechaCalificacion(),EstadoAssembler.getInstance().toDomainFromDTO(dto.getEstado()));
+    }
 
-	public ComentarioLectorAssembler(UUID identificador, LectorEntity lector, PublicacionEntity publicacion, ComentarioLectorDTO comentarioPadre, String contenido, LocalDateTime fechaCalificacion, EstadoDTO estado) {
-		super();
-		setIdentificador(identificador);
-		setLector(lector);
-		setPublicacion(publicacion);
-		setComentarioPadre(comentarioPadre);
-		setCotenido(contenido);
-		setFechaCalificacion(fechaCalificacion);
-		setEstado(estado);
-	}
+    @Override
+    public ComentarioLectorEntity toEntityFromDomain(ComentarioLectorDomain domain) {
+        return new ComentarioLectorEntity(domain.getIdentificador(),LectorAssembler.getInstance().toEntityFromDomain(domain.getLector()),PublicacionAssembler.getInstance().toEntityFromDomain(domain.getPublicacion()),
+                ComentarioLectorAssembler.getInstance().toEntityFromDomain(domain.getComentarioPadre()), domain.getCotenido(),domain.getFechaCalificacion(), EstadoAssembler.getInstance().toEntityFromDomain(domain.getEstado()));
+    }
 
-	public UUID getIdentificador() {
-		return identificador;
-	}
-
-	public LectorEntity getLector() {
-		return lector;
-	}
-
-	public PublicacionEntity getPublicacion() {
-		return publicacion;
-	}
-
-	public ComentarioLectorAssembler getComentarioPadre() {
-		return comentarioPadre;
-	}
-
-	public String getCotenido() {
-		return cotenido;
-	}
-
-	public LocalDateTime getFechaCalificacion() {
-		return fechaCalificacion;
-	}
-
-	public EstadoEntity getEstado() {
-		return estado;
-	}
-	
-	private final void setIdentificador(UUID identificador) {
-		this.identificador = identificador;
-	}
-
-	private final void setLector(LectorEntity lector) {
-		this.lector = lector;
-	}
-
-	private final void setPublicacion(PublicacionEntity publicacion) {
-		this.publicacion = publicacion;
-	}
-
-	private final void setComentarioPadre(final ComentarioLectorAssembler comentarioPadre) {
-		this.comentarioPadre = comentarioPadre;
-	}
-
-	private final void setEstado(final EstadoEntity estado) {
-		this.estado = estado;
-	}
-
-	private final void setCotenido(String cotenido) {
-		this.cotenido = cotenido;
-	}
-
-	private final void setFechaCalificacion(LocalDateTime fechaCalificacion) {
-		this.fechaCalificacion = fechaCalificacion;
-	}
-	
+    @Override
+    public ComentarioLectorDomain toDomainFromEntity(ComentarioLectorEntity entity) {
+        return new ComentarioLectorDomain(entity.getIdentificador(),LectorAssembler.getInstance().toDomainFromEntity(entity.getLector()), PublicacionAssembler.getInstance().toDomainFromEntity(entity.getPublicacion()),
+                ComentarioLectorAssembler.getInstance().toDomainFromEntity(entity.getComentarioPadre()), entity.getCotenido(),entity.getFechaCalificacion(),
+                EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
+    }
 }

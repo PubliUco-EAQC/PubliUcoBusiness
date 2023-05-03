@@ -1,62 +1,37 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilText;
+import co.edu.uco.publiuco.business.assembler.Assembler;
+import co.edu.uco.publiuco.business.domain.CategoriaDomain;
+import co.edu.uco.publiuco.dto.CategoriaDTO;
+import co.edu.uco.publiuco.entities.CategoriaEntity;
 
-import java.util.UUID;
-
-public class CategoriaAssembler {
-    private UUID identificador;
-    private CategoriaAssembler categoriaPadre;
-    private String nombre;
-    private String descripcion;
-    private EstadoEntity estado;
-
-    public CategoriaAssembler(UUID identificador, CategoriaAssembler categoriaPadre, String nombre, String descripcion, EstadoEntity estado) {
+public final class CategoriaAssembler implements Assembler<CategoriaDomain, CategoriaDTO, CategoriaEntity> {
+    public static final CategoriaAssembler INSTANCE = new CategoriaAssembler();
+    public static CategoriaAssembler getInstance() { return INSTANCE; }
+    private CategoriaAssembler(){
         super();
-        setIdentificador(identificador);
-        setCategoriaPadre(categoriaPadre);
-        setNombre(nombre);
-        setDescripcion(descripcion);
-        setEstado(estado);
+    }
+    @Override
+    public CategoriaDTO toDTOFromDomain(CategoriaDomain domain) {
+        return CategoriaDTO.create().setCategoriaPadre(CategoriaAssembler.getInstance().toDTOFromDomain(domain.getCategoriaPadre()))
+                .setNombre(domain.getNombre()).setDescripcion(domain.getDescripcion()).setEstado(EstadoAssembler.getInstance().toDTOFromDomain(domain.getEstado()));
     }
 
-    public final void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+    @Override
+    public CategoriaDomain toDomainFromDTO(CategoriaDTO dto) {
+        return new CategoriaDomain(dto.getIdentificador(),CategoriaAssembler.getInstance().toDomainFromDTO(dto.getCategoriaPadre()),dto.getNombre(),dto.getDescripcion(),
+                EstadoAssembler.getInstance().toDomainFromDTO(dto.getEstado()));
     }
 
-    public final void setCategoriaPadre(CategoriaAssembler categoriaPadre) {
-        this.categoriaPadre = categoriaPadre;
+    @Override
+    public CategoriaEntity toEntityFromDomain(CategoriaDomain domain) {
+        return new CategoriaEntity(domain.getIdentificador(),CategoriaAssembler.getInstance().toEntityFromDomain(domain.getCategoriaPadre()),domain.getNombre(),domain.getDescripcion(),
+                EstadoAssembler.getInstance().toEntityFromDomain(domain.getEstado()));
     }
 
-    public final void setNombre(String nombre) {
-        this.nombre = UtilText.applyTrim(nombre);
-    }
-
-    public final void setDescripcion(String descripcion) {
-        this.descripcion = UtilText.applyTrim(descripcion);
-    }
-
-    public final void setEstado(EstadoEntity estado) {
-        this.estado = estado;
-    }
-
-    public UUID getIdentificador() {
-        return identificador;
-    }
-
-    public CategoriaAssembler getCategoriaPadre() {
-        return categoriaPadre;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public EstadoEntity getEstado() {
-        return estado;
+    @Override
+    public CategoriaDomain toDomainFromEntity(CategoriaEntity entity) {
+        return new CategoriaDomain(entity.getIdentificador(),CategoriaAssembler.getInstance().toDomainFromEntity(entity.getCategoriaPadre()),
+                entity.getNombre(),entity.getDescripcion(),EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
 }

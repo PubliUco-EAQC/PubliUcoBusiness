@@ -1,5 +1,6 @@
 package co.edu.uco.publiuco.business.domain;
 
+import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
 import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
 
 import java.util.UUID;
@@ -8,6 +9,15 @@ public final class CategoriaAdministradorCategoriaDomain {
 	private UUID identificador;
 	private CategoriaDomain categoria;
 	private AdministradorCategoriaDomain administradorCategoria;
+	public static CategoriaAdministradorCategoriaDomain DEFAULT_OBJECT = new CategoriaAdministradorCategoriaDomain();
+
+	private CategoriaAdministradorCategoriaDomain() {
+		super();
+		setIdentificador(UtilUUID.getDefaultValue());
+		setCategoria(CategoriaDomain.getDefaultObject());
+		setAdministradorCategoria(AdministradorCategoriaDomain.getDefaultObject());
+	}
+
 
 	public CategoriaAdministradorCategoriaDomain(UUID identificador, CategoriaDomain categoria, AdministradorCategoriaDomain administradorCategoria) {
 		super();
@@ -16,16 +26,17 @@ public final class CategoriaAdministradorCategoriaDomain {
 		setAdministradorCategoria(administradorCategoria);
 	}
 
-	public final void setIdentificador(final UUID identificador) {
+	private final void setIdentificador(final UUID identificador) {
 		this.identificador = UtilUUID.getDefault(identificador);
 	}
 
-	public final void setCategoria(final CategoriaDomain categoria) {
-		this.categoria = categoria;
+	private final void setCategoria(final CategoriaDomain categoria) {
+		this.categoria = UtilObject.getDefault(categoria, CategoriaDomain.getDefaultObject());
 	}
 
-	public final void setAdministradorCategoria(final AdministradorCategoriaDomain administradorCategoria) {
-		this.administradorCategoria = administradorCategoria;
+	private final void setAdministradorCategoria(final AdministradorCategoriaDomain administradorCategoria) {
+
+		this.administradorCategoria = UtilObject.getDefault(administradorCategoria, AdministradorCategoriaDomain.getDefaultObject());
 	}
 
 	public UUID getIdentificador() {
@@ -38,5 +49,9 @@ public final class CategoriaAdministradorCategoriaDomain {
 
 	public AdministradorCategoriaDomain getAdministradorCategoria() {
 		return administradorCategoria;
+	}
+
+	public static CategoriaAdministradorCategoriaDomain getDefaultObject (){
+		return DEFAULT_OBJECT;
 	}
 }
