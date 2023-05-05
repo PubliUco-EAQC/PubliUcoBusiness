@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.EstadoDomain;
 import co.edu.uco.publiuco.dto.EstadoDTO;
@@ -32,4 +34,9 @@ public final class EstadoAssembler implements Assembler<EstadoDomain, EstadoDTO,
     public EstadoDomain toDomainFromEntity(EstadoEntity entity) {
         return new EstadoDomain(entity.getIdentificador(), entity.getNombre(), TipoEstadoAssembler.getInstance().toDomainFromEntity(entity.getTipoEstado()));
     }
+    
+	@Override
+	public final List<EstadoDomain> toDomainFromEntityList(List<EstadoEntity> entityList) {		
+		return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+	}
 }

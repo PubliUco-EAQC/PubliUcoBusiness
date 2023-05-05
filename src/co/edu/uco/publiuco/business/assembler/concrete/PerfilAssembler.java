@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PerfilDomain;
 import co.edu.uco.publiuco.dto.PerfilDTO;
@@ -35,4 +37,9 @@ public final class PerfilAssembler implements Assembler<PerfilDomain, PerfilDTO,
         return new PerfilDomain(entity.getIdentificador(),LectorAssembler.getInstance().toDomainFromEntity(entity.getLector()),
                 RespuestaAssembler.getInstance().toDomainFromEntity(entity.getDeseaRecibirRecomendacionesDeCategoria()),RespuestaAssembler.getInstance().toDomainFromEntity(entity.getDeseaRecibirRecomendacionesDeAutor()) );
     }
+	@Override
+	public List<PerfilDomain> toDomainFromEntityList(List<PerfilEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

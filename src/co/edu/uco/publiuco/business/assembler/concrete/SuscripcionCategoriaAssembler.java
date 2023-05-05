@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.SuscripcionCategoriaDomain;
 import co.edu.uco.publiuco.dto.SuscripcionCategoriaDTO;
@@ -34,4 +36,9 @@ public final class SuscripcionCategoriaAssembler implements Assembler<Suscripcio
         return new SuscripcionCategoriaDomain(entity.getIdentificador(),PerfilAssembler.getInstance().toDomainFromEntity(entity.getPerfil()),
                 PlanCategoriaAssembler.getInstance().toDomainFromEntity(entity.getPlanCategoria()));
     }
+	@Override
+	public List<SuscripcionCategoriaDomain> toDomainFromEntityList(List<SuscripcionCategoriaEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

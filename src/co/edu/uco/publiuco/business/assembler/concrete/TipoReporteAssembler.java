@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.TipoReporteDomain;
 import co.edu.uco.publiuco.dto.TipoReporteDTO;
@@ -31,4 +33,9 @@ public final class TipoReporteAssembler implements Assembler<TipoReporteDomain, 
     public TipoReporteDomain toDomainFromEntity(TipoReporteEntity entity) {
         return new TipoReporteDomain(entity.getIdentificador(),entity.getNombre(),entity.getDescripcion());
     }
+	@Override
+	public List<TipoReporteDomain> toDomainFromEntityList(List<TipoReporteEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

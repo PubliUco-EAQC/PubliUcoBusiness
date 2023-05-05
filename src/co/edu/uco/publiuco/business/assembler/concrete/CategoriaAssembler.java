@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.CategoriaDomain;
 import co.edu.uco.publiuco.dto.CategoriaDTO;
@@ -34,4 +36,9 @@ public final class CategoriaAssembler implements Assembler<CategoriaDomain, Cate
         return new CategoriaDomain(entity.getIdentificador(),CategoriaAssembler.getInstance().toDomainFromEntity(entity.getCategoriaPadre()),
                 entity.getNombre(),entity.getDescripcion(),EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
+	@Override
+	public List<CategoriaDomain> toDomainFromEntityList(List<CategoriaEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

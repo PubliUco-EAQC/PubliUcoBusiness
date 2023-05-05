@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.RespuestaDomain;
 import co.edu.uco.publiuco.dto.RespuestaDTO;
@@ -31,4 +33,9 @@ public final class RespuestaAssembler implements Assembler<RespuestaDomain, Resp
     public RespuestaDomain toDomainFromEntity(RespuestaEntity entity) {
         return new RespuestaDomain(entity.getIdentificador(),entity.getNombre(),entity.getDescripcion());
     }
+	@Override
+	public List<RespuestaDomain> toDomainFromEntityList(List<RespuestaEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

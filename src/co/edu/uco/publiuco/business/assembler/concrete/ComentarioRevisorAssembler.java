@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.ComentarioRevisorDomain;
 import co.edu.uco.publiuco.dto.ComentarioRevisorDTO;
@@ -34,4 +36,9 @@ public final class ComentarioRevisorAssembler implements Assembler<ComentarioRev
     public ComentarioRevisorDomain toDomainFromEntity(ComentarioRevisorEntity entity) {
         return new ComentarioRevisorDomain(entity.getIdentificador(),RevisorRevisionAssembler.getInstance().toDomainFromEntity(entity.getRevisorRevision()),TipoComentarioRevisorAssembler.getInstance().toDomainFromEntity(entity.getTipoComentarioRevisor()), entity.getComentario());
     }
+	@Override
+	public List<ComentarioRevisorDomain> toDomainFromEntityList(List<ComentarioRevisorEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

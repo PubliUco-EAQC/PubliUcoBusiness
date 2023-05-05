@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.VersionDomain;
 import co.edu.uco.publiuco.dto.VersionDTO;
@@ -39,4 +41,9 @@ public final class VersionAssembler implements Assembler<VersionDomain, VersionD
                 entity.getNumeroVersion(),entity.getFechaCreacion(),entity.getUltimaFechaModificacion(),entity.getTitulo(), entity.getResumen(),entity.getCuerpo(),
                 EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
+	@Override
+	public List<VersionDomain> toDomainFromEntityList(List<VersionEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

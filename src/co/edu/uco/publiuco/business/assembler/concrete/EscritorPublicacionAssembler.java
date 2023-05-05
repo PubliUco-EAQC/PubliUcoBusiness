@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.EscritorPublicacionDomain;
 import co.edu.uco.publiuco.dto.EscritorPublicacionDTO;
@@ -34,4 +36,9 @@ public final class EscritorPublicacionAssembler implements Assembler<EscritorPub
         return new EscritorPublicacionDomain(entity.getIdentificador(),PublicacionAssembler.getInstance().toDomainFromEntity(entity.getPublicacion()),
                 EscritorAssembler.getInstance().toDomainFromEntity(entity.getEscritor()), TipoEscritorAssembler.getInstance().toDomainFromEntity(entity.getTipoEscritor()));
     }
+	@Override
+	public List<EscritorPublicacionDomain> toDomainFromEntityList(List<EscritorPublicacionEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

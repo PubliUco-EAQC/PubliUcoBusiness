@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PersonaDomain;
 import co.edu.uco.publiuco.dto.PersonaDTO;
@@ -44,4 +46,9 @@ public final class PersonaAssembler implements Assembler<PersonaDomain, PersonaD
                 entity.getCorreoElectronico(), PaisAssembler.getInstance().toDomainFromEntity(entity.getIndicadorPais()), entity.getNumeroTelefonoMovil(),
                 EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()), TipoRelacionInstitucionAssembler.getInstance().toDomainFromEntity(entity.getTipoRelacionInstitucion()));
     }
+	@Override
+	public List<PersonaDomain> toDomainFromEntityList(List<PersonaEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

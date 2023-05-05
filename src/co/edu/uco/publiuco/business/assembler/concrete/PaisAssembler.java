@@ -1,5 +1,7 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
+import java.util.List;
+
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PaisDomain;
 import co.edu.uco.publiuco.dto.PaisDTO;
@@ -30,4 +32,9 @@ public final class PaisAssembler implements Assembler<PaisDomain, PaisDTO, PaisE
     public PaisDomain toDomainFromEntity(PaisEntity entity) {
         return new PaisDomain(entity.getIdentificador(), entity.getNombre(), entity.getIndicadorPais());
     }
+	@Override
+	public List<PaisDomain> toDomainFromEntityList(List<PaisEntity> entityList) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
