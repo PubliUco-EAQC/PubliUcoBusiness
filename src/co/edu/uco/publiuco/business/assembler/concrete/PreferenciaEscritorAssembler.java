@@ -6,6 +6,11 @@ import co.edu.uco.publiuco.dto.PreferenciaEscritorDTO;
 import co.edu.uco.publiuco.entities.PreferenciaEscritorEntity;
 
 public final class PreferenciaEscritorAssembler implements Assembler<PreferenciaEscritorDomain, PreferenciaEscritorDTO, PreferenciaEscritorEntity> {
+    public static final PreferenciaEscritorAssembler INSTANCE = new PreferenciaEscritorAssembler();
+    public static PreferenciaEscritorAssembler getInstance() { return INSTANCE; }
+    private PreferenciaEscritorAssembler(){
+        super();
+    }
     @Override
     public PreferenciaEscritorDTO toDTOFromDomain(PreferenciaEscritorDomain domain) {
         return PreferenciaEscritorDTO.create().setIdentificador(domain.getIdentificador()).setEscritor(EscritorAssembler.getInstance().toDTOFromDomain(domain.getEscritor()))

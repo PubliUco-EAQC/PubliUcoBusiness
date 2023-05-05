@@ -6,6 +6,11 @@ import co.edu.uco.publiuco.dto.PalabraClavePublicacionDTO;
 import co.edu.uco.publiuco.entities.PalabraClavePublicacionEntity;
 
 public final class PalabraClavePublicacionAssembler implements Assembler<PalabraClavePublicacionDomain, PalabraClavePublicacionDTO, PalabraClavePublicacionEntity> {
+    public static final PalabraClavePublicacionAssembler INSTANCE = new PalabraClavePublicacionAssembler();
+    public static PalabraClavePublicacionAssembler getInstance() { return INSTANCE; }
+    private PalabraClavePublicacionAssembler(){
+        super();
+    }
     @Override
     public PalabraClavePublicacionDTO toDTOFromDomain(PalabraClavePublicacionDomain domain) {
         return PalabraClavePublicacionDTO.create().setIdentificador(domain.getIdentificador()).setPalabraClave(domain.getPalabraClave())

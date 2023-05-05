@@ -24,7 +24,7 @@ public final class TipoIdentificacionAssembler implements Assembler<TipoIdentifi
 
     @Override
     public TipoIdentificacionEntity toEntityFromDomain(TipoIdentificacionDomain domain) {
-        return new TipoIdentificacionEntity(domain.getIdentificador(),domain.getNombre(),domain.getDescripcion());
+        return new TipoIdentificacionEntity(domain.getIdentificador(),domain.getNombre(),domain.getDescripcion(), null);
     }
 
     @Override

@@ -6,6 +6,11 @@ import co.edu.uco.publiuco.dto.ReporteDTO;
 import co.edu.uco.publiuco.entities.ReporteEntity;
 
 public final class ReporteAssembler implements Assembler<ReporteDomain, ReporteDTO, ReporteEntity> {
+    public static final ReporteAssembler INSTANCE = new ReporteAssembler();
+    public static ReporteAssembler getInstance() { return INSTANCE; }
+    private ReporteAssembler(){
+        super();
+    }
     @Override
     public ReporteDTO toDTOFromDomain(ReporteDomain domain) {
         return ReporteDTO.create().setIdentificador(domain.getIdentificador()).setFechaReporte(domain.getFechaReporte())

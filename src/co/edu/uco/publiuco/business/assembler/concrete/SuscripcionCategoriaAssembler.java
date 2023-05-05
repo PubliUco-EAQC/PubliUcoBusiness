@@ -6,6 +6,11 @@ import co.edu.uco.publiuco.dto.SuscripcionCategoriaDTO;
 import co.edu.uco.publiuco.entities.SuscripcionCategoriaEntity;
 
 public final class SuscripcionCategoriaAssembler implements Assembler<SuscripcionCategoriaDomain, SuscripcionCategoriaDTO, SuscripcionCategoriaEntity> {
+    public static final SuscripcionCategoriaAssembler INSTANCE = new SuscripcionCategoriaAssembler();
+    public static SuscripcionCategoriaAssembler getInstance() { return INSTANCE; }
+    private SuscripcionCategoriaAssembler(){
+        super();
+    }
     @Override
     public SuscripcionCategoriaDTO toDTOFromDomain(SuscripcionCategoriaDomain domain) {
         return SuscripcionCategoriaDTO.create().setIdentificador(domain.getIdentificador()).setPlanCategoria(PlanCategoriaAssembler.getInstance().toDTOFromDomain(domain.getPlanCategoria()))

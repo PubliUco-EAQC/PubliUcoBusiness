@@ -24,7 +24,7 @@ public final class TipoEstadoAssembler implements Assembler<TipoEstadoDomain, Ti
 
     @Override
     public TipoEstadoEntity toEntityFromDomain(TipoEstadoDomain domain) {
-        return new TipoEstadoEntity(domain.getIdentificador(),domain.getNombre(), domain.getDescripcion());
+        return new TipoEstadoEntity(domain.getIdentificador(),domain.getNombre(), null);
     }
 
     @Override

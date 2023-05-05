@@ -12,12 +12,12 @@ public final class AdministradorCategoriaAssembler implements Assembler<Administ
         super();
     }
     @Override
-    public AdministradorCategoriaDTO toDtoFromDomain(AdministradorCategoriaDomain domain) {
+    public AdministradorCategoriaDTO toDTOFromDomain(AdministradorCategoriaDomain domain) {
         return AdministradorCategoriaDTO.create().setIdentificador(domain.getIdentificador()).setPersona(PersonaAssembler.getInstance().toDTOFromDomain(domain.getPersona()));
     }
 
     @Override
-    public AdministradorCategoriaDomain toDomainFromDto(AdministradorCategoriaDTO dto) {
+    public AdministradorCategoriaDomain toDomainFromDTO(AdministradorCategoriaDTO dto) {
         return new AdministradorCategoriaDomain(dto.getIdentificador(), PersonaAssembler.getInstance().toDomainFromDTO(dto.getPersona()), EstadoAssembler.getInstance().toDomainFromDTO(dto.getEstado()));
     }
 
@@ -30,14 +30,4 @@ public final class AdministradorCategoriaAssembler implements Assembler<Administ
     public AdministradorCategoriaDomain toDomainFromEntity(AdministradorCategoriaEntity entity) {
         return new AdministradorCategoriaDomain(entity.getIdentificador(),PersonaAssembler.getInstance().toDomainFromEntity(entity.getPersona()), EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
-	@Override
-	public AdministradorCategoriaDTO toDtofromDomain(AdministradorCategoriaDomain domain) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public AdministradorCategoriaDomain toDomainFromDto(AdministradorCategoriaDTO dto) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

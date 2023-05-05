@@ -6,6 +6,11 @@ import co.edu.uco.publiuco.dto.PreferenciaCategoriaDTO;
 import co.edu.uco.publiuco.entities.PreferenciaCategoriaEntity;
 
 public final class PreferenciaCategoriaAssembler implements Assembler<PreferenciaCategoriaDomain, PreferenciaCategoriaDTO, PreferenciaCategoriaEntity> {
+    public static final PreferenciaCategoriaAssembler INSTANCE = new PreferenciaCategoriaAssembler();
+    public static PreferenciaCategoriaAssembler getInstance() { return INSTANCE; }
+    private PreferenciaCategoriaAssembler(){
+        super();
+    }
     @Override
     public PreferenciaCategoriaDTO toDTOFromDomain(PreferenciaCategoriaDomain domain) {
         return PreferenciaCategoriaDTO.create().setIdentificador(domain.getIdentificador()).setCategoria(CategoriaAssembler.getInstance().toDTOFromDomain(domain.getCategoria()))
