@@ -1,16 +1,16 @@
 package co.edu.uco.publiuco.business.business.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import co.edu.uco.publiuco.business.assembler.concrete.AdministradorCategoriaAssembler;
-import co.edu.uco.publiuco.business.assembler.concrete.EstadoAssembler;
 import co.edu.uco.publiuco.business.business.AdministradorCategoriaBusiness;
 import co.edu.uco.publiuco.business.domain.AdministradorCategoriaDomain;
-import co.edu.uco.publiuco.business.domain.EstadoDomain;
 import co.edu.uco.publiuco.data.dao.factory.DAOFactory;
-import co.edu.uco.publiuco.entities.EstadoEntity;
+import co.edu.uco.publiuco.entities.AdministradorCategoriaEntity;
 
-public final class AdministradorCategoriaBusinessImpl implements AdministradorCategoriaBusiness {
+public class AdministradorCategoriaBusinessImpl implements AdministradorCategoriaBusiness {
+
 	DAOFactory daoFactory;
 
 	public AdministradorCategoriaBusinessImpl(final DAOFactory daoFactory) {
@@ -18,23 +18,18 @@ public final class AdministradorCategoriaBusinessImpl implements AdministradorCa
 	}
 
 	@Override
-    public final List<AdministradorCategoriaDomain> list(final AdministradorCategoriaDomain domain) {
-
-        final EstadoEntity entity = EstadoAssembler.getInstance()
-                .toEntityFromDomain(domain);
-
-        List<EstadoEntity> resultEntityList = daoFactory.getEstado()
-                .read(entity);
-
-        return AdministradorCategoriaAssembler.getInstance().toDomainFromEntityList(resultEntityList);
-    }
+	public final void register(AdministradorCategoriaDomain domain) {
+		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
+				.toEntityFromDomain(domain);
+		daoFactory.getAdministradorCategoria().create(entity);
+	}
 
 	@Override
 	public final List<AdministradorCategoriaDomain> list(AdministradorCategoriaDomain domain) {
 		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
 				.toEntityFromDomain(domain);
 
-		final List<AdministradorCategoriaEntity> result = daoFactory.getAdministradorCategoriaDAO().read(entity);
+		final List<AdministradorCategoriaEntity> result = daoFactory.getAdministradorCategoria().read(entity);
 
 		return null;
 	}
@@ -43,15 +38,15 @@ public final class AdministradorCategoriaBusinessImpl implements AdministradorCa
 	public final void modify(AdministradorCategoriaDomain domain) {
 		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
 				.toEntityFromDomain(domain);
-		daoFactory.getAdministradorCategoriaDAO().update(entity);
+		daoFactory.getAdministradorCategoria().update(entity);
 
 	}
+
 
 	@Override
-	public final void drop(AdministradorCategoriaDomain domain) {
-		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
-				.toEntityFromDomain(domain);
-		daoFactory.getAdministradorCategoriaDAO().delete(entity);
-
+	public void drop(AdministradorCategoriaDomain domain) {
+		// TODO Auto-generated method stub
+		
 	}
+
 }

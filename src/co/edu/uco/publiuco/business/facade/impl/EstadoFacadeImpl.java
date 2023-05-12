@@ -72,7 +72,8 @@ public class EstadoFacadeImpl implements EstadoFacade {
 			throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
 		} finally {
 			daoFactory.closeTransaction();
-		}	}
+		}
+		return null;	}
 
 	@Override
 	public void modify(EstadoDTO dto) {
