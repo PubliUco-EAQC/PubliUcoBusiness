@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.TipoComentarioRevisorDomain;
 import co.edu.uco.publiuco.dto.TipoComentarioRevisorDTO;
 import co.edu.uco.publiuco.entities.TipoComentarioRevisorEntity;
+
+import java.util.List;
 
 public final class TipoComentarioRevisorAssembler implements Assembler<TipoComentarioRevisorDomain, TipoComentarioRevisorDTO, TipoComentarioRevisorEntity> {
     public static final TipoComentarioRevisorAssembler INSTANCE = new TipoComentarioRevisorAssembler();
@@ -33,9 +33,18 @@ public final class TipoComentarioRevisorAssembler implements Assembler<TipoComen
     public TipoComentarioRevisorDomain toDomainFromEntity(TipoComentarioRevisorEntity entity) {
         return new TipoComentarioRevisorDomain(entity.getIdentificador(),entity.getNombre(),entity.getDescripcion());
     }
-	@Override
-	public List<TipoComentarioRevisorDomain> toDomainFromEntityList(List<TipoComentarioRevisorEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<TipoComentarioRevisorDomain> toDomainFromEntityList(List<TipoComentarioRevisorEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+    }
+
+    @Override
+    public List<TipoComentarioRevisorDomain> toDomainFromDTOList(List<TipoComentarioRevisorDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<TipoComentarioRevisorDTO> toDTOFromDomainList(List<TipoComentarioRevisorDomain> domainList) {
+        return null;
+    }
 }

@@ -21,7 +21,7 @@ public class AdministradorCategoriaBusinessImpl implements AdministradorCategori
 	public final void register(AdministradorCategoriaDomain domain) {
 		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
 				.toEntityFromDomain(domain);
-		daoFactory.getAdministradorCategoria().create(entity);
+		daoFactory.getAdministradorCategoriaDAO().create(entity);
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class AdministradorCategoriaBusinessImpl implements AdministradorCategori
 		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
 				.toEntityFromDomain(domain);
 
-		final List<AdministradorCategoriaEntity> result = daoFactory.getAdministradorCategoria().read(entity);
+		final List<AdministradorCategoriaEntity> result = daoFactory.getAdministradorCategoriaDAO().read(entity);
 
 		return null;
 	}
@@ -38,15 +38,14 @@ public class AdministradorCategoriaBusinessImpl implements AdministradorCategori
 	public final void modify(AdministradorCategoriaDomain domain) {
 		final AdministradorCategoriaEntity entity = AdministradorCategoriaAssembler.getInstance()
 				.toEntityFromDomain(domain);
-		daoFactory.getAdministradorCategoria().update(entity);
+		daoFactory.getAdministradorCategoriaDAO().update(entity);
 
 	}
 
-
 	@Override
-	public void drop(AdministradorCategoriaDomain domain) {
-		// TODO Auto-generated method stub
-		
+	public final void drop(UUID domain) {
+		daoFactory.getAdministradorCategoriaDAO().delete(domain);
+
 	}
 
 }

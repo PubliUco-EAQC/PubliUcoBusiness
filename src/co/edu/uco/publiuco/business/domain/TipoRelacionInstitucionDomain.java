@@ -1,9 +1,9 @@
 package co.edu.uco.publiuco.business.domain;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilText;
-import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
-
 import java.util.UUID;
+
+import co.edu.uco.publiuco.utils.UtilText;
+import co.edu.uco.publiuco.utils.UtilUUID;
 
 public final class TipoRelacionInstitucionDomain {
     private UUID identificador;

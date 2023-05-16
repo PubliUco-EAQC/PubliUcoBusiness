@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PreferenciaCategoriaDomain;
 import co.edu.uco.publiuco.dto.PreferenciaCategoriaDTO;
 import co.edu.uco.publiuco.entities.PreferenciaCategoriaEntity;
+
+import java.util.List;
 
 public final class PreferenciaCategoriaAssembler implements Assembler<PreferenciaCategoriaDomain, PreferenciaCategoriaDTO, PreferenciaCategoriaEntity> {
     public static final PreferenciaCategoriaAssembler INSTANCE = new PreferenciaCategoriaAssembler();
@@ -36,9 +36,20 @@ public final class PreferenciaCategoriaAssembler implements Assembler<Preferenci
         return new PreferenciaCategoriaDomain(entity.getIdentificador(),PerfilAssembler.getInstance().toDomainFromEntity(entity.getPerfil()),
                 CategoriaAssembler.getInstance().toDomainFromEntity(entity.getCategoria()));
     }
-	@Override
-	public List<PreferenciaCategoriaDomain> toDomainFromEntityList(List<PreferenciaCategoriaEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<PreferenciaCategoriaDomain> toDomainFromEntityList(List<PreferenciaCategoriaEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<PreferenciaCategoriaDomain> toDomainFromDTOList(List<PreferenciaCategoriaDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<PreferenciaCategoriaDTO> toDTOFromDomainList(List<PreferenciaCategoriaDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

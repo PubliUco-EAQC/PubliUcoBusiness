@@ -1,13 +1,18 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.ObservacionRevisionDomain;
 import co.edu.uco.publiuco.dto.ObservacionRevisionDTO;
 import co.edu.uco.publiuco.entities.ObservacionRevisionEntity;
 
+import java.util.List;
+
 public final class ObservacionRevisionAssembler implements Assembler<ObservacionRevisionDomain, ObservacionRevisionDTO, ObservacionRevisionEntity> {
+    public static final ObservacionRevisionAssembler INSTANCE = new ObservacionRevisionAssembler();
+    public static ObservacionRevisionAssembler getInstance() { return INSTANCE; }
+    private ObservacionRevisionAssembler(){
+        super();
+    }
     @Override
     public ObservacionRevisionDTO toDTOFromDomain(ObservacionRevisionDomain domain) {
         return ObservacionRevisionDTO.create().setIdentificador(domain.getIdentificador()).setObservacion(domain.getObservacion())
@@ -36,9 +41,18 @@ public final class ObservacionRevisionAssembler implements Assembler<Observacion
                 entity.getFechaRevisionObservacion(),entity.getObservacion(),EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
 
-	@Override
-	public List<ObservacionRevisionDomain> toDomainFromEntityList(List<ObservacionRevisionEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<ObservacionRevisionDomain> toDomainFromEntityList(List<ObservacionRevisionEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+    }
+
+    @Override
+    public List<ObservacionRevisionDomain> toDomainFromDTOList(List<ObservacionRevisionDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<ObservacionRevisionDTO> toDTOFromDomainList(List<ObservacionRevisionDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

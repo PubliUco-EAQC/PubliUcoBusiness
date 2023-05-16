@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.domain;
 
-import co.edu.uco.publiuco.crosscutting.utils.UtilDate;
-import co.edu.uco.publiuco.crosscutting.utils.UtilObject;
-import co.edu.uco.publiuco.crosscutting.utils.UtilUUID;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import co.edu.uco.publiuco.utils.UtilDate;
+import co.edu.uco.publiuco.utils.UtilObject;
+import co.edu.uco.publiuco.utils.UtilUUID;
 
 public final class HistorialAccesoPublicacionDomain {
     private UUID identificador;

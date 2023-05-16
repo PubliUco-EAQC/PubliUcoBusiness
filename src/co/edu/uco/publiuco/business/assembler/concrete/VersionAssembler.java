@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.VersionDomain;
 import co.edu.uco.publiuco.dto.VersionDTO;
 import co.edu.uco.publiuco.entities.VersionEntity;
+
+import java.util.List;
 
 public final class VersionAssembler implements Assembler<VersionDomain, VersionDTO, VersionEntity> {
     public static final VersionAssembler INSTANCE = new VersionAssembler();
@@ -41,9 +41,20 @@ public final class VersionAssembler implements Assembler<VersionDomain, VersionD
                 entity.getNumeroVersion(),entity.getFechaCreacion(),entity.getUltimaFechaModificacion(),entity.getTitulo(), entity.getResumen(),entity.getCuerpo(),
                 EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
-	@Override
-	public List<VersionDomain> toDomainFromEntityList(List<VersionEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<VersionDomain> toDomainFromEntityList(List<VersionEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<VersionDomain> toDomainFromDTOList(List<VersionDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<VersionDTO> toDTOFromDomainList(List<VersionDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

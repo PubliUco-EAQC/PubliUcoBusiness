@@ -1,9 +1,9 @@
 package co.edu.uco.publiuco.business.domain;
 
-import co.edu.uco.publiuco.crosscutting.utils.*;
-
 import java.time.LocalDateTime;
 import java.util.UUID;
+
+import co.edu.uco.publiuco.utils.*;
 
 public final class VersionDomain {
     private UUID identificador;

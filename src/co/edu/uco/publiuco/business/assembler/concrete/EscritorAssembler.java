@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.EscritorDomain;
 import co.edu.uco.publiuco.dto.EscritorDTO;
 import co.edu.uco.publiuco.entities.EscritorEntity;
+
+import java.util.List;
 
 public final class EscritorAssembler implements Assembler<EscritorDomain, EscritorDTO, EscritorEntity> {
     public static final EscritorAssembler INSTANCE = new EscritorAssembler();
@@ -37,9 +37,19 @@ public final class EscritorAssembler implements Assembler<EscritorDomain, Escrit
                 TipoRelacionInstitucionAssembler.getInstance().toDomainFromEntity(entity.getTipoRelacionInstitucion()),
                 EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
-	@Override
-	public List<EscritorDomain> toDomainFromEntityList(List<EscritorEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<EscritorDomain> toDomainFromEntityList(List<EscritorEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+    }
+
+    @Override
+    public List<EscritorDomain> toDomainFromDTOList(List<EscritorDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<EscritorDTO> toDTOFromDomainList(List<EscritorDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.TipoReporteDomain;
 import co.edu.uco.publiuco.dto.TipoReporteDTO;
 import co.edu.uco.publiuco.entities.TipoReporteEntity;
+
+import java.util.List;
 
 public final class TipoReporteAssembler implements Assembler<TipoReporteDomain, TipoReporteDTO, TipoReporteEntity> {
     public static final TipoReporteAssembler INSTANCE = new TipoReporteAssembler();
@@ -33,9 +33,20 @@ public final class TipoReporteAssembler implements Assembler<TipoReporteDomain, 
     public TipoReporteDomain toDomainFromEntity(TipoReporteEntity entity) {
         return new TipoReporteDomain(entity.getIdentificador(),entity.getNombre(),entity.getDescripcion());
     }
-	@Override
-	public List<TipoReporteDomain> toDomainFromEntityList(List<TipoReporteEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<TipoReporteDomain> toDomainFromEntityList(List<TipoReporteEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<TipoReporteDomain> toDomainFromDTOList(List<TipoReporteDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<TipoReporteDTO> toDTOFromDomainList(List<TipoReporteDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PersonaDomain;
 import co.edu.uco.publiuco.dto.PersonaDTO;
 import co.edu.uco.publiuco.entities.PersonaEntity;
+
+import java.util.List;
 
 public final class PersonaAssembler implements Assembler<PersonaDomain, PersonaDTO, PersonaEntity> {
     public static final PersonaAssembler INSTANCE = new PersonaAssembler();
@@ -46,9 +46,19 @@ public final class PersonaAssembler implements Assembler<PersonaDomain, PersonaD
                 entity.getCorreoElectronico(), PaisAssembler.getInstance().toDomainFromEntity(entity.getIndicadorPais()), entity.getNumeroTelefonoMovil(),
                 EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()), TipoRelacionInstitucionAssembler.getInstance().toDomainFromEntity(entity.getTipoRelacionInstitucion()));
     }
-	@Override
-	public List<PersonaDomain> toDomainFromEntityList(List<PersonaEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<PersonaDomain> toDomainFromEntityList(List<PersonaEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+    }
+
+    @Override
+    public List<PersonaDomain> toDomainFromDTOList(List<PersonaDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<PersonaDTO> toDTOFromDomainList(List<PersonaDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

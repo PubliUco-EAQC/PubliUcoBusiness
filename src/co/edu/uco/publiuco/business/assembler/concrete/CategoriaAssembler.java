@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.CategoriaDomain;
 import co.edu.uco.publiuco.dto.CategoriaDTO;
 import co.edu.uco.publiuco.entities.CategoriaEntity;
+
+import java.util.List;
 
 public final class CategoriaAssembler implements Assembler<CategoriaDomain, CategoriaDTO, CategoriaEntity> {
     public static final CategoriaAssembler INSTANCE = new CategoriaAssembler();
@@ -36,9 +36,20 @@ public final class CategoriaAssembler implements Assembler<CategoriaDomain, Cate
         return new CategoriaDomain(entity.getIdentificador(),CategoriaAssembler.getInstance().toDomainFromEntity(entity.getCategoriaPadre()),
                 entity.getNombre(),entity.getDescripcion(),EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
-	@Override
-	public List<CategoriaDomain> toDomainFromEntityList(List<CategoriaEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<CategoriaDomain> toDomainFromEntityList(List<CategoriaEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<CategoriaDomain> toDomainFromDTOList(List<CategoriaDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<CategoriaDTO> toDTOFromDomainList(List<CategoriaDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

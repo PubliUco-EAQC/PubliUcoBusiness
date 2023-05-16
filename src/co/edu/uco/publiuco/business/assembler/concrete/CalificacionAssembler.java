@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.CalificacionDomain;
 import co.edu.uco.publiuco.dto.CalificacionDTO;
 import co.edu.uco.publiuco.entities.CalificacionEntity;
+
+import java.util.List;
 
 public final class CalificacionAssembler implements Assembler<CalificacionDomain, CalificacionDTO, CalificacionEntity> {
     public static final CalificacionAssembler INSTANCE = new CalificacionAssembler();
@@ -34,8 +34,19 @@ public final class CalificacionAssembler implements Assembler<CalificacionDomain
     public CalificacionDomain toDomainFromEntity(CalificacionEntity entity) {
         return new CalificacionDomain(entity.getIdentificador(),PublicacionAssembler.getInstance().toDomainFromEntity(entity.getPublicacion()), LectorAssembler.getInstance().toDomainFromEntity(entity.getLector()),entity.getFechaCalificacion(), entity.getCalificacion());
     }
-    
-	public List<CalificacionDomain> toDomainFromEntityList(List<CalificacionEntity> entityList) {
-		return null;
-	}
+
+    @Override
+    public List<CalificacionDomain> toDomainFromEntityList(List<CalificacionEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<CalificacionDomain> toDomainFromDTOList(List<CalificacionDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<CalificacionDTO> toDTOFromDomainList(List<CalificacionDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+    }
 }

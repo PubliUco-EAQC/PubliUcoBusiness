@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PaisDomain;
 import co.edu.uco.publiuco.dto.PaisDTO;
 import co.edu.uco.publiuco.entities.PaisEntity;
+
+import java.util.List;
 
 public final class PaisAssembler implements Assembler<PaisDomain, PaisDTO, PaisEntity> {
     public static final PaisAssembler INSTANCE = new PaisAssembler();
@@ -32,9 +32,20 @@ public final class PaisAssembler implements Assembler<PaisDomain, PaisDTO, PaisE
     public PaisDomain toDomainFromEntity(PaisEntity entity) {
         return new PaisDomain(entity.getIdentificador(), entity.getNombre(), entity.getIndicadorPais());
     }
-	@Override
-	public List<PaisDomain> toDomainFromEntityList(List<PaisEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<PaisDomain> toDomainFromEntityList(List<PaisEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<PaisDomain> toDomainFromDTOList(List<PaisDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<PaisDTO> toDTOFromDomainList(List<PaisDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

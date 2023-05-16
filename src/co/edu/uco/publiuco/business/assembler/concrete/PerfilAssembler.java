@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.PerfilDomain;
 import co.edu.uco.publiuco.dto.PerfilDTO;
 import co.edu.uco.publiuco.entities.PerfilEntity;
+
+import java.util.List;
 
 public final class PerfilAssembler implements Assembler<PerfilDomain, PerfilDTO, PerfilEntity> {
     public static final PerfilAssembler INSTANCE = new PerfilAssembler();
@@ -37,9 +37,20 @@ public final class PerfilAssembler implements Assembler<PerfilDomain, PerfilDTO,
         return new PerfilDomain(entity.getIdentificador(),LectorAssembler.getInstance().toDomainFromEntity(entity.getLector()),
                 RespuestaAssembler.getInstance().toDomainFromEntity(entity.getDeseaRecibirRecomendacionesDeCategoria()),RespuestaAssembler.getInstance().toDomainFromEntity(entity.getDeseaRecibirRecomendacionesDeAutor()) );
     }
-	@Override
-	public List<PerfilDomain> toDomainFromEntityList(List<PerfilEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<PerfilDomain> toDomainFromEntityList(List<PerfilEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+
+    }
+
+    @Override
+    public List<PerfilDomain> toDomainFromDTOList(List<PerfilDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<PerfilDTO> toDTOFromDomainList(List<PerfilDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

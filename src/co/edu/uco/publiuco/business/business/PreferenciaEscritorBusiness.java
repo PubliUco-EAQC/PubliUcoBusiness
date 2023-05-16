@@ -1,0 +1,18 @@
+package co.edu.uco.publiuco.business.business;
+
+import java.util.List;
+import java.util.UUID;
+
+import co.edu.uco.publiuco.business.domain.PreferenciaEscritorDomain;
+
+public interface PreferenciaEscritorBusiness {
+
+	void register(PreferenciaEscritorDomain domain);
+
+	List<PreferenciaEscritorDomain> list(PreferenciaEscritorDomain domain);
+
+	void modify(PreferenciaEscritorDomain domain);
+
+	void drop(UUID domain);
+
+}

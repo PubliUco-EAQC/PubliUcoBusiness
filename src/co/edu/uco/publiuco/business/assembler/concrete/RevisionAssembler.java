@@ -1,12 +1,12 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.RevisionDomain;
 import co.edu.uco.publiuco.dto.RevisionDTO;
 
 import co.edu.uco.publiuco.entities.RevisionEntity;
+
+import java.util.List;
 
 public final class RevisionAssembler implements Assembler<RevisionDomain, RevisionDTO, RevisionEntity> {
     public static final RevisionAssembler INSTANCE = new RevisionAssembler();
@@ -40,9 +40,19 @@ public final class RevisionAssembler implements Assembler<RevisionDomain, Revisi
                 TipoRevisionAssembler.getInstance().toDomainFromEntity(entity.getTipoRevision()), entity.getFechaSolicitudRevision(),
                 entity.getFechaLimiteRevision(), entity.getFechaCompletitudRevision(), EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
-	@Override
-	public List<RevisionDomain> toDomainFromEntityList(List<RevisionEntity> entityList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
+    @Override
+    public List<RevisionDomain> toDomainFromEntityList(List<RevisionEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+    }
+
+    @Override
+    public List<RevisionDomain> toDomainFromDTOList(List<RevisionDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();    }
+
+    @Override
+    public List<RevisionDTO> toDTOFromDomainList(List<RevisionDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }

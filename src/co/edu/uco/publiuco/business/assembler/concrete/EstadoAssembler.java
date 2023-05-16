@@ -1,11 +1,11 @@
 package co.edu.uco.publiuco.business.assembler.concrete;
 
-import java.util.List;
-
 import co.edu.uco.publiuco.business.assembler.Assembler;
 import co.edu.uco.publiuco.business.domain.EstadoDomain;
 import co.edu.uco.publiuco.dto.EstadoDTO;
 import co.edu.uco.publiuco.entities.EstadoEntity;
+
+import java.util.List;
 
 
 public final class EstadoAssembler implements Assembler<EstadoDomain, EstadoDTO, EstadoEntity> {
@@ -34,9 +34,20 @@ public final class EstadoAssembler implements Assembler<EstadoDomain, EstadoDTO,
     public EstadoDomain toDomainFromEntity(EstadoEntity entity) {
         return new EstadoDomain(entity.getIdentificador(), entity.getNombre(), TipoEstadoAssembler.getInstance().toDomainFromEntity(entity.getTipoEstado()));
     }
-    
-	@Override
-	public final List<EstadoDomain> toDomainFromEntityList(List<EstadoEntity> entityList) {		
-		return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
-	}
+
+    @Override
+    public final List<EstadoDomain> toDomainFromEntityList(List<EstadoEntity> entityList) {
+        return entityList.stream().map(entity -> toDomainFromEntity(entity)).toList();
+    }
+
+    @Override
+    public List<EstadoDomain> toDomainFromDTOList(List<EstadoDTO> dtoList) {
+        return dtoList.stream().map(dto -> toDomainFromDTO(dto)).toList();
+    }
+
+    @Override
+    public List<EstadoDTO> toDTOFromDomainList(List<EstadoDomain> domainList) {
+        return domainList.stream().map(domain -> toDTOFromDomain(domain)).toList();
+
+    }
 }
