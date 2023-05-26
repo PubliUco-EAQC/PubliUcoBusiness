@@ -44,7 +44,7 @@ public final class TipoRelacionInstitucionFacadeImpl implements TipoRelacionInst
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -69,7 +69,7 @@ public final class TipoRelacionInstitucionFacadeImpl implements TipoRelacionInst
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
 
         }
     }

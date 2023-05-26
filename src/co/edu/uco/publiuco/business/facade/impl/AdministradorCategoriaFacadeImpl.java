@@ -46,7 +46,7 @@ public final class AdministradorCategoriaFacadeImpl implements AdministradorCate
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -71,7 +71,7 @@ public final class AdministradorCategoriaFacadeImpl implements AdministradorCate
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -96,7 +96,7 @@ public final class AdministradorCategoriaFacadeImpl implements AdministradorCate
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -120,7 +120,7 @@ public final class AdministradorCategoriaFacadeImpl implements AdministradorCate
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 }

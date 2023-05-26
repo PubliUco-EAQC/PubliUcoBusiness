@@ -46,7 +46,7 @@ public final class PaisFacadeImpl implements PaisFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
 
         }
     }

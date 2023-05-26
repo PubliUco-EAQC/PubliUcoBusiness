@@ -46,7 +46,7 @@ public final class VersionFacadeImpl implements VersionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -71,7 +71,7 @@ public final class VersionFacadeImpl implements VersionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
 
         }
     }
@@ -97,7 +97,7 @@ public final class VersionFacadeImpl implements VersionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -120,7 +120,7 @@ public final class VersionFacadeImpl implements VersionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 }

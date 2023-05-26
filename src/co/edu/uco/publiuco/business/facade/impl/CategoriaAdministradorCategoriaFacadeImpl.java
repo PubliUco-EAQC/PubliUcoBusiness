@@ -45,7 +45,7 @@ public final class CategoriaAdministradorCategoriaFacadeImpl implements Categori
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -70,7 +70,7 @@ public final class CategoriaAdministradorCategoriaFacadeImpl implements Categori
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -95,7 +95,7 @@ public final class CategoriaAdministradorCategoriaFacadeImpl implements Categori
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -119,7 +119,7 @@ public final class CategoriaAdministradorCategoriaFacadeImpl implements Categori
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 }

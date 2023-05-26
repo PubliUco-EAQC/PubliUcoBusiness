@@ -20,7 +20,7 @@ public class TipoComentarioRevisorBusinessImpl implements TipoComentarioRevisorB
 	public void register(TipoComentarioRevisorDomain domain) {
 		final TipoComentarioRevisorEntity entity = TipoComentarioRevisorAssembler.getInstance()
 				.toEntityFromDomain(domain);
-		daoFactory.getTipoComentarioDAO().create(entity);
+		daoFactory.getTipoComentarioRevisorDAO().create(entity);
 
 	}
 
@@ -29,7 +29,7 @@ public class TipoComentarioRevisorBusinessImpl implements TipoComentarioRevisorB
 		final TipoComentarioRevisorEntity entity = TipoComentarioRevisorAssembler.getInstance()
 				.toEntityFromDomain(domain);
 
-		final List<TipoComentarioRevisorEntity> result = daoFactory.getTipoComentarioDAO().read(entity);
+		final List<TipoComentarioRevisorEntity> result = daoFactory.getTipoComentarioRevisorDAO().read(entity);
 
 		return null;
 	}

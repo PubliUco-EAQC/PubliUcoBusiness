@@ -49,7 +49,7 @@ public final class PlanPublicacionFacadeImpl implements PlanPublicacionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -74,7 +74,7 @@ public final class PlanPublicacionFacadeImpl implements PlanPublicacionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
 
         }
     }
@@ -100,7 +100,7 @@ public final class PlanPublicacionFacadeImpl implements PlanPublicacionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 
@@ -124,7 +124,7 @@ public final class PlanPublicacionFacadeImpl implements PlanPublicacionFacade {
 
             throw PubliUcoBusinessException.create(technicalMessage, userMessage, exception);
         } finally {
-            daoFactory.closeConection();
+            daoFactory.closeConnection();
         }
     }
 }
