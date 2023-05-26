@@ -30,7 +30,7 @@ public final class AdministradorCategoriaAssembler implements Assembler<Administ
 
     @Override
     public AdministradorCategoriaDomain toDomainFromEntity(AdministradorCategoriaEntity entity) {
-        return new AdministradorCategoriaDomain(entity.getIdentificador(),PersonaAssembler.getInstance().toDomainFromEntity(entity.getPersona()), EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
+        return new AdministradorCategoriaDomain(entity.getIdentificador(),PersonaAssembler.getInstance().toDomainFromEntity(entity.getDatosPersona()), EstadoAssembler.getInstance().toDomainFromEntity(entity.getEstado()));
     }
 
     @Override
